@@ -75,7 +75,7 @@ tensorboard --log_dir tb_logs --bind_all
 所以在处理实际问题时需要根据需要padding到固定长度（比如本项目中的32*320）。也可以训练一个大长度的模型，只是需要
 更长的时间。
 
-```bash  
+```  
 python predict.py --setting <your_setting.yaml> 
 ```
 
