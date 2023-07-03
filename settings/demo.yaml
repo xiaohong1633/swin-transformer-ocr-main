@@ -1,0 +1,58 @@
+# Input/Output/Name
+image_dir: "dataset/images"
+train_data: "dataset/lmdb/train"
+val_data: "dataset/lmdb/val"
+tokenizer: "dataset/dict_en_num_token.pkl"
+save_path: "checkpoints"
+name: "transformer-ocr-xiaohong"
+dict_path: "dataset/dict_en_num.txt"
+
+epochs: 120
+
+# Optimizer configurations
+optimizer: "AdamW"
+lr: 4e-4
+scheduler: "CustomCosineAnnealingWarmupRestarts"
+scheduler_interval: "step"
+scheduler_param:
+  first_cycle_steps: 1000
+  cycle_mult: 3
+  max_lr: 0.001
+  min_lr: 0.0000001
+  warmup_steps: 500
+  gamma: 0.707
+
+# Parameters for model architectures
+width: 320
+height: 32
+channels: 3
+
+# Encoder
+encoder_dim: 24
+patch_size: 2   #或者取4,注意输出维度变化，需要对应decoder_dim
+window_size:  2 #或者取4,注意输出维度变化，需要对应decoder_dim
+encoder_depth: [2, 2, 6, 2]
+encoder_heads: [3, 6, 12, 24]
+
+# Decoder
+max_seq_len: 32
+decoder_dim: 192
+decoder_heads: 8
+decoder_depth: 4
+decoder_cfg: 
+  cross_attend: true
+  ff_glu: false
+  attn_on_attn: false
+  use_scalenorm: false
+  rel_pos_bias: false
+
+# Other
+seed: 42
+temperature: 0.2
+pad: False
+
+# Token ids
+pad_token: 0
+bos_token: 1
+eos_token: 2
+oov_token: 3
